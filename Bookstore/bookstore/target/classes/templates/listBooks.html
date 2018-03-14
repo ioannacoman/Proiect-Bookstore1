@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:dt="http://www.thymeleaf.org/dandelion/datatables">
+<head>
+    <title>Lista cartilor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Lista de carti'" />
+
+
+<form action="#" th:action="@{/books}" th:object="${book}" method="post">
+    <div>
+        <label th:for="${title}">Titlul cartii</label>
+        <input type="text" id="title" name="title" th:value="*{title}" />
+    </div>
+    <div>
+        <label th:for="${author}">Autorul</label>
+        <input type="text" id="author" name="author" th:value="*{author}" />
+    </div>
+    <div>
+        <label th:for="${publisher}">Editor</label>
+        <input type="text" id="publisher" name="publisher" th:value="*{publisher}" />
+    </div>
+
+    <div>
+        <label th:for="${publicationDate}">Data publicarii</label>
+        <input type="text" id="publicationDate" name="publicationDate" th:value="*{publicationDate}" />
+    </div>
+    <div>
+        <label th:for="${language}">Limba</label>
+        <input type="text" id="language" name="language" th:value="*{language}" />
+    </div>
+    <div>
+        <label th:for="${category}">Categoria</label>
+        <input type="text" id="category" name="category" th:value="*{category}" />
+    </div>
+    <div>
+        <label th:for="${numberOfPages}">Numarul de pagini</label>
+        <input type="text" id="numberOfPages" name="numberOfPages" th:value="*{numberOfPages}" />
+    </div>
+
+    <div>
+        <label th:for="${format}">Formatul</label>
+        <input type="text" id="format" name="format" th:value="*{format}" />
+    </div>
+    <div>
+        <label th:for="${isbn}">Isbn</label>
+        <input type="text" id="isbn" name="isbn" th:value="*{isbn}" />
+    </div>
+
+    <div>
+        <label th:for="${shippingWeight}">Greutatea pentru transport</label>
+        <input type="text" id="shippingWeight" name="shippingWeight" th:value="*{shippingWeight}" />
+    </div>
+    <div>
+        <label th:for="${listPrice}">Pretul normal</label>
+        <input type="text" id="listPrice" name="listPrice" th:value="*{listPrice}" />
+    </div>
+
+    <div>
+        <label th:for="${ourPrice}">Pretul cu reducere</label>
+        <input type="text" id="ourPrice" name="ourPrice" th:value="*{ourPrice}" />
+    </div>
+
+    <div>
+        <input type="submit" id="doUpdate" name="save book" value="create book"/>
+    </div>
+</form>
+
+<br/>
+<br/>
+
+<table id="myTableId" dt:table="true">
+    <thead>
+    <tr>
+        <th>Titlul cartii</th>
+        <th>Autorul</th>
+        <th>Editor</th>
+        <th>Data publicarii</th>
+        <th>Limba</th>
+        <th>Categoria</th>
+        <th>Numarul de pagini</th>
+        <th>Formatul</th>
+        <th>Isbn</th>
+        <th>Greautatea pentru transport</th>
+        <th>Pretul normal</th>
+        <th>Pretul cu reducere</th>
+        <th>Update</th>
+        <th>Delete</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publisher}"></td>
+        <td th:text="${book.publicationDate}"></td>
+        <td th:text="${book.language}"></td>
+        <td th:text="${book.category}"></td>
+        <td th:text="${book.numberOfPages}"></td>
+        <td th:text="${book.format}"></td>
+        <td th:text="${book.isbn}"></td>
+        <td th:text="${book.shippingWeight}"></td>
+        <td th:text="${book.listPrice}"></td>
+        <td th:text="${book.ourPrice}"></td>
+
+        <td>
+            <a th:href="@{/books/} + ${book?.idBook} + '/'">Update</a>
+        </td>
+
+        <td>
+            <form th:action="@{/books/delete/} + ${book?.idBook} + '/'" th:object="${book}" method="post">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
